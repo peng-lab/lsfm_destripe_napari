@@ -1,0 +1,50 @@
+name: destripe-lsfm
+display_name: DeStripeLSFM
+# use 'hidden' to remove plugin from napari hub search results
+visibility: public
+# see https://napari.org/stable/plugins/manifest.html for valid categories
+categories: ["Annotation", "Segmentation", "Acquisition"]
+contributions:
+  commands:
+    - id: destripe-lsfm.get_reader
+      python_name: destripe_lsfm._reader:napari_get_reader
+      title: Open data with DeStripeLSFM
+    - id: destripe-lsfm.write_multiple
+      python_name: destripe_lsfm._writer:write_multiple
+      title: Save multi-layer data with DeStripeLSFM
+    - id: destripe-lsfm.write_single_image
+      python_name: destripe_lsfm._writer:write_single_image
+      title: Save image data with DeStripeLSFM
+    - id: destripe-lsfm.make_container_widget
+      python_name: destripe_lsfm:ImageThreshold
+      title: Make threshold Container widget
+    - id: destripe-lsfm.make_magic_widget
+      python_name: destripe_lsfm:threshold_magic_widget
+      title: Make threshold magic widget
+    - id: destripe-lsfm.make_function_widget
+      python_name: destripe_lsfm:threshold_autogenerate_widget
+      title: Make threshold function widget
+    - id: destripe-lsfm.make_qwidget
+      python_name: destripe_lsfm:ExampleQWidget
+      title: Make example QWidget
+  readers:
+    - command: destripe-lsfm.get_reader
+      accepts_directories: false
+      filename_patterns: ['*.npy']
+  writers:
+    - command: destripe-lsfm.write_multiple
+      layer_types: ['image*','labels*']
+      filename_extensions: []
+    - command: destripe-lsfm.write_single_image
+      layer_types: ['image']
+      filename_extensions: ['.npy']
+  widgets:
+    - command: destripe-lsfm.make_container_widget
+      display_name: Container Threshold
+    - command: destripe-lsfm.make_magic_widget
+      display_name: Magic Threshold
+    - command: destripe-lsfm.make_function_widget
+      autogenerate: true
+      display_name: Autogenerate Threshold
+    - command: destripe-lsfm.make_qwidget
+      display_name: Example QWidget
