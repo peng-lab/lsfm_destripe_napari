@@ -1,4 +1,5 @@
 import numpy as np
+from aicsimageio.writers import OmeTiffWriter
 
 from destripe_lsfm import napari_get_reader
 
@@ -8,22 +9,25 @@ def test_reader(tmp_path):
     """An example of how you might test your plugin."""
 
     # write some fake data using your supported file format
-    my_test_file = str(tmp_path / "myfile.npy")
-    original_data = np.random.rand(20, 20)
-    np.save(my_test_file, original_data)
+    my_test_file = str(tmp_path / "myfile.tiff")
+    original_data = np.random.randint(0, 2**16, (20, 20), dtype=np.uint16)
+    data = original_data.astype(np.uint16)
+    OmeTiffWriter.save(data, my_test_file, dim_order_out="YX")
 
     # try to read it back in
     reader = napari_get_reader(my_test_file)
     assert callable(reader)
 
     # make sure we're delivering the right format
-    layer_data_list = reader(my_test_file)
-    assert isinstance(layer_data_list, list) and len(layer_data_list) > 0
-    layer_data_tuple = layer_data_list[0]
-    assert isinstance(layer_data_tuple, tuple) and len(layer_data_tuple) > 0
+    result = reader(my_test_file)
+    assert isinstance(result, tuple) and len(result) > 0
+    image, filename = result
+    assert isinstance(image, np.ndarray)
+    assert filename == "myfile.tiff"
 
     # make sure it's the same as it started
-    np.testing.assert_allclose(original_data, layer_data_tuple[0])
+    assert image.shape == original_data.shape
+    assert image.dtype == original_data.dtype
 
 
 def test_get_reader_pass():
