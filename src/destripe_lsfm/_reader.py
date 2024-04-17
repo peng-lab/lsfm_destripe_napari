@@ -75,5 +75,6 @@ def read_tiff(path):
         Data read from the file
     """
     filename = Path(path).name
-    data = AICSImage(path).get_image_data("YX")
+    reader = AICSImage(path)
+    data = reader.get_image_data("ZYX")
     return data, filename

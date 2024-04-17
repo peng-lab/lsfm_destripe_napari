@@ -3,6 +3,8 @@ module providing napari widget
 """
 
 import logging
+import numpy as np
+import torch
 
 from qtpy.QtWidgets import (
     QVBoxLayout,
@@ -15,9 +17,13 @@ from qtpy.QtWidgets import (
     QComboBox,
     QDialog,
     QApplication,
+    QCheckBox,
+    QLineEdit,
 )
 from qtpy.QtCore import Qt
 import napari
+
+from lsfm_destripe.core import DeStripe
 
 from destripe_lsfm._reader import open_dialog, napari_get_reader
 from destripe_lsfm._writer import save_dialog, write_tiff
@@ -26,6 +32,8 @@ from destripe_lsfm._writer import save_dialog, write_tiff
 
 class DestripeWidget(QWidget):
     """Main widget of the plugin"""
+
+    print(callable(DeStripe)) # sanity check for vscode
 
     def __init__(self, viewer: "napari.viewer.Viewer"):
         super().__init__()
@@ -49,8 +57,9 @@ class DestripeWidget(QWidget):
         title.setMaximumHeight(100)
 
         label_mask = QLabel("Mask:")
-        label_p1 = QLabel("P1:")
-        label_p2 = QLabel("P2:")
+        label_vertical = QLabel("Is vertical:")
+        label_angle = QLabel("Angle offset:")
+        label_angle.setToolTip("Angle offset in degrees")
 
         # QPushbutton
         btn_load = QPushButton("Load")
@@ -62,18 +71,28 @@ class DestripeWidget(QWidget):
         btn_save.clicked.connect(self.save)
 
         # QCombobox
-        self.combobox_input_layer = QComboBox()
-        # self.combobox_input_layer.addItems(
+        self.combobox_mask = QComboBox()
+        # self.combobox_mask.addItems(
         #     ["Layernames", "will", "show", "up", "here"]
         # )
+
+        # QCheckBox
+        self.checkbox_vertical = QCheckBox()
+        self.checkbox_vertical.setChecked(True)
+
+        # QLineEdit
+        self.lineedit_angle = QLineEdit()
+        self.lineedit_angle.setText("0")
 
         # QGroupBox
         parameters = QGroupBox("Parameters")
         gb_layout = QGridLayout()
-        gb_layout.addWidget(label_p1, 0, 0)
-        gb_layout.addWidget(label_p2, 1, 0)
+        gb_layout.addWidget(label_vertical, 0, 0)
+        gb_layout.addWidget(self.checkbox_vertical, 0, 1)
+        gb_layout.addWidget(label_angle, 1, 0)
+        gb_layout.addWidget(self.lineedit_angle, 1, 1)
         gb_layout.addWidget(label_mask, 2, 0)
-        gb_layout.addWidget(self.combobox_input_layer, 2, 1)
+        gb_layout.addWidget(self.combobox_mask, 2, 1)
         parameters.setLayout(gb_layout)
 
         layout = QGridLayout()
@@ -111,11 +130,11 @@ class DestripeWidget(QWidget):
         layernames = [
             layer.name
             for layer in self.viewer.layers
-            if type(layer) == napari.layers.Image
+            if type(layer) == napari.layers.Labels
         ]
         layernames.reverse()
-        self.combobox_input_layer.clear()
-        self.combobox_input_layer.addItems(layernames)
+        self.combobox_mask.clear()
+        self.combobox_mask.addItems(layernames)
 
     def connect_rename(self, event):
         event.value.events.name.connect(self.update_combobox)
@@ -166,13 +185,47 @@ class DestripeWidget(QWidget):
             self.logger.info("No file selected")
             return
         self.logger.debug(f"Saving to {filepath}...")
-        # data = self.viewer.layers[0].data
         write_tiff(filepath, data)
         self.logger.info("Data saved")
 
     def process(self):
-        self.logger.info("Processing coming soon...")
-
+        mask_layer_name = self.combobox_mask.currentText()
+        self.logger.debug("Selected mask: %s", mask_layer_name)
+        if mask_layer_name not in self.viewer.layers:
+            self.logger.info("Selected mask not found")
+            return
+        is_vertical = self.checkbox_vertical.isChecked()
+        self.logger.debug("Vertical: %s", is_vertical)
+        try:
+            angle_offset = list(map(float, self.lineedit_angle.text().split(",")))
+        except ValueError:
+            self.logger.error("Invalid angle offset")
+            return
+        self.logger.debug("Angle offset: %s", angle_offset)
+        for layer in self.viewer.layers:
+            if isinstance(layer, napari.layers.Image):
+                input_image = layer.data
+            break
+        if input_image is None:
+            self.logger.info("No image layer found")
+            return
+        input_image = np.expand_dims(input_image, axis=1)
+        mask_layer_index = self.viewer.layers.index(mask_layer_name)
+        mask_arr = self.viewer.layers[mask_layer_index].data
+        if torch.cuda.is_available():
+            self.logger.debug("CUDA is available")
+            device = "cuda"
+        else:
+            self.logger.debug("CUDA is not available")
+            device = "cpu"
+        output_image = DeStripe.train_on_full_arr(
+            X = input_image,
+            is_vertical = is_vertical,
+            angle_offset = angle_offset,
+            mask = mask_arr,
+            device = device,
+        )
+        self.viewer.add_image(output_image, name="Destriped Image")
 
 class LayerSelection(QDialog):
     def __init__(self, layernames: list[str]):
