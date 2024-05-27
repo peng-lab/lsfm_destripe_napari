@@ -9,42 +9,20 @@ contributions:
     - id: destripe-lsfm.get_reader
       python_name: destripe_lsfm._reader:napari_get_reader
       title: Open data with DeStripeLSFM
-    - id: destripe-lsfm.write_multiple
-      python_name: destripe_lsfm._writer:write_multiple
-      title: Save multi-layer data with DeStripeLSFM
-    - id: destripe-lsfm.write_single_image
-      python_name: destripe_lsfm._writer:write_single_image
+    - id: destripe-lsfm.write_tiff
+      python_name: destripe_lsfm._writer:write_tiff
       title: Save image data with DeStripeLSFM
-    - id: destripe-lsfm.make_container_widget
-      python_name: destripe_lsfm:ImageThreshold
-      title: Make threshold Container widget
-    - id: destripe-lsfm.make_magic_widget
-      python_name: destripe_lsfm:threshold_magic_widget
-      title: Make threshold magic widget
-    - id: destripe-lsfm.make_function_widget
-      python_name: destripe_lsfm:threshold_autogenerate_widget
-      title: Make threshold function widget
     - id: destripe-lsfm.make_qwidget
-      python_name: destripe_lsfm:ExampleQWidget
-      title: Make example QWidget
+      python_name: destripe_lsfm:DestripeWidget
+      title: Make LSFM Destripe Widget
   readers:
     - command: destripe-lsfm.get_reader
       accepts_directories: false
-      filename_patterns: ['*.npy']
+      filename_patterns: ['*.tif', '*.tiff']
   writers:
-    - command: destripe-lsfm.write_multiple
-      layer_types: ['image*','labels*']
-      filename_extensions: []
-    - command: destripe-lsfm.write_single_image
+    - command: destripe-lsfm.write_tiff
       layer_types: ['image']
-      filename_extensions: ['.npy']
+      filename_extensions: ['.tiff']
   widgets:
-    - command: destripe-lsfm.make_container_widget
-      display_name: Container Threshold
-    - command: destripe-lsfm.make_magic_widget
-      display_name: Magic Threshold
-    - command: destripe-lsfm.make_function_widget
-      autogenerate: true
-      display_name: Autogenerate Threshold
     - command: destripe-lsfm.make_qwidget
-      display_name: Example QWidget
+      display_name: LSFM Destripe Widget
