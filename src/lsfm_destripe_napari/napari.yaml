@@ -7,13 +7,13 @@ categories: ["Annotation", "Segmentation", "Acquisition"]
 contributions:
   commands:
     - id: destripe-lsfm.get_reader
-      python_name: destripe_lsfm._reader:napari_get_reader
+      python_name: lsfm_destripe_napari._reader:napari_get_reader
       title: Open data with DeStripeLSFM
     - id: destripe-lsfm.write_tiff
-      python_name: destripe_lsfm._writer:write_tiff
+      python_name: lsfm_destripe_napari._writer:write_tiff
       title: Save image data with DeStripeLSFM
     - id: destripe-lsfm.make_qwidget
-      python_name: destripe_lsfm:DestripeWidget
+      python_name: lsfm_destripe_napari:DestripeWidget
       title: Make LSFM Destripe Widget
   readers:
     - command: destripe-lsfm.get_reader

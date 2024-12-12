@@ -26,8 +26,8 @@ import napari
 
 from lsfm_destripe.core import DeStripe
 
-from destripe_lsfm._reader import open_dialog, napari_get_reader
-from destripe_lsfm._writer import save_dialog, write_tiff
+from lsfm_destripe_napari._reader import open_dialog, napari_get_reader
+from lsfm_destripe_napari._writer import save_dialog, write_tiff
 
 
 
