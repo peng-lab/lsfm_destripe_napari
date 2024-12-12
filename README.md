@@ -1,6 +1,6 @@
-# destripe-lsfm
+# lsfm_destripe_napari
 
-[![License BSD-3](https://img.shields.io/pypi/l/destripe-lsfm.svg?color=green)](https://github.com/peng-Lab/lsfm_destripe_napari/raw/main/LICENSE)
+[![License BSD-3](https://img.shields.io/pypi/l/lsfm_destripe_napari.svg?color=green)](https://github.com/peng-Lab/lsfm_destripe_napari/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/lsfm_destripe_napari.svg?color=green)](https://pypi.org/project/lsfm_destripe_napari)
 [![Python Version](https://img.shields.io/pypi/pyversions/lsfm_destripe_napari.svg?color=green)](https://python.org)
 [![tests](https://github.com/peng-Lab/lsfm_destripe_napari/workflows/tests/badge.svg)](https://github.com/peng-Lab/lsfm_destripe_napari/actions)
@@ -42,7 +42,7 @@ the coverage at least stays the same before you submit a pull request.
 ## License
 
 Distributed under the terms of the [BSD-3] license,
-"destripe-lsfm" is free and open source software
+"lsfm_destripe_napari" is free and open source software
 
 ## Issues
 
