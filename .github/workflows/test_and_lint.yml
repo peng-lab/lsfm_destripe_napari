@@ -3,7 +3,13 @@
 
 name: test
 
-on: pull_request
+on: 
+  pull_request:
+    branches:
+      - main  # Specify the branch to monitor (adjust as needed)
+  schedule:
+    # Triggers the workflow on a schedule
+    - cron: '0 18 1 * *'  # First day of every month at 18:00 UTC
 
 jobs:
   test:
