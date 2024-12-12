@@ -1,11 +1,11 @@
 # destripe-lsfm
 
-[![License BSD-3](https://img.shields.io/pypi/l/destripe-lsfm.svg?color=green)](https://github.com/MMV-Lab/destripe-lsfm/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/destripe-lsfm.svg?color=green)](https://pypi.org/project/destripe-lsfm)
-[![Python Version](https://img.shields.io/pypi/pyversions/destripe-lsfm.svg?color=green)](https://python.org)
-[![tests](https://github.com/MMV-Lab/destripe-lsfm/workflows/tests/badge.svg)](https://github.com/MMV-Lab/destripe-lsfm/actions)
-[![codecov](https://codecov.io/gh/MMV-Lab/destripe-lsfm/branch/main/graph/badge.svg)](https://codecov.io/gh/MMV-Lab/destripe-lsfm)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/destripe-lsfm)](https://napari-hub.org/plugins/destripe-lsfm)
+[![License BSD-3](https://img.shields.io/pypi/l/destripe-lsfm.svg?color=green)](https://github.com/peng-Lab/lsfm_destripe_napari/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/lsfm_destripe_napari.svg?color=green)](https://pypi.org/project/lsfm_destripe_napari)
+[![Python Version](https://img.shields.io/pypi/pyversions/lsfm_destripe_napari.svg?color=green)](https://python.org)
+[![tests](https://github.com/peng-Lab/lsfm_destripe_napari/workflows/tests/badge.svg)](https://github.com/peng-Lab/lsfm_destripe_napari/actions)
+[![codecov](https://codecov.io/gh/peng-Lab/lsfm_destripe_napari/branch/main/graph/badge.svg)](https://codecov.io/gh/peng-Lab/lsfm_destripe_napari)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/lsfm_destripe_napari)](https://napari-hub.org/plugins/lsfm_destripe_napari)
 
 A simple plugin to destripe microscopy images
 
@@ -23,15 +23,15 @@ https://napari.org/stable/plugins/index.html
 
 ## Installation
 
-You can install `destripe-lsfm` via [pip]:
+You can install `lsfm_destripe_napari` via [pip]:
 
-    pip install destripe-lsfm
+    pip install lsfm_destripe_napari
 
 
 
 To install latest development version :
 
-    pip install git+https://github.com/MMV-Lab/destripe-lsfm.git
+    pip install git+https://github.com/peng-Lab/lsfm_destripe_napari.git
 
 
 ## Contributing
@@ -59,7 +59,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
 [cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
 
-[file an issue]: https://github.com/MMV-Lab/destripe-lsfm/issues
+[file an issue]: https://github.com/peng-Lab/lsfm_destripe_napari/issues
 
 [napari]: https://github.com/napari/napari
 [tox]: https://tox.readthedocs.io/en/latest/
