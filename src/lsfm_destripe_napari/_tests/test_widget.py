@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from destripe_lsfm._widget import (
+from lsfm_destripe_napari._widget import (
     DestripeWidget,
 )
 
