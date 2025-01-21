@@ -4,7 +4,6 @@ module providing napari widget
 
 import logging
 import numpy as np
-import torch
 import warnings
 
 from qtpy.QtWidgets import (
@@ -17,7 +16,6 @@ from qtpy.QtWidgets import (
     QGroupBox,
     QComboBox,
     QDialog,
-    QApplication,
     QCheckBox,
     QLineEdit,
     QStylePainter,
@@ -34,10 +32,7 @@ from lsfm_destripe.core import DeStripe
 from lsfm_destripe_napari._reader import open_dialog, napari_get_reader
 from lsfm_destripe_napari._writer import save_dialog, write_tiff
 
-from PyQt5 import QtGui
-
 font = QtGui.QFont()
-font.setFamily("Microsoft YaHei UI")
 font.setPointSize(20)
 
 
@@ -75,7 +70,8 @@ class DestripeWidget(QWidget):
         self.advanced_options_elements = []
 
         # This is how to set position and size of the viewer window:
-        # self.viewer.window.set_geometry(0, 0, max(1000, width), max(600, height))
+        # self.viewer.window.set_geometry(0, 0, max(1000, width),
+        # max(600, height))
 
         _, _, width, height = self.viewer.window.geometry()
         # width = self.viewer.window.geometry()[2]
@@ -85,7 +81,6 @@ class DestripeWidget(QWidget):
         self.logger.setLevel(logging.DEBUG)
         self.logger.debug("Initializing DestripeWidget...")
 
-        ## QObjects
         # QLabel
         title = QLabel("<h1>Leonardo-DeStripe</h1>")
         title.setAlignment(Qt.AlignCenter)
@@ -350,12 +345,12 @@ class DestripeWidget(QWidget):
         layernames_label = [
             layer.name
             for layer in self.viewer.layers
-            if type(layer) == napari.layers.Labels
+            if isinstance(layer, napari.layers.Labels)
         ]
         layernames_image = [
             layer.name
             for layer in self.viewer.layers
-            if type(layer) == napari.layers.Image
+            if isinstance(layer, napari.layers.Image)
         ]
         layernames_label = layernames_label + ["None"]
         layernames_label.reverse()
@@ -407,7 +402,7 @@ class DestripeWidget(QWidget):
         layernames = [
             layer.name
             for layer in self.viewer.layers
-            if type(layer) == napari.layers.Image
+            if isinstance(layer, napari.layers.Image)
         ]
         layernames.reverse()
         if not layernames:
@@ -502,24 +497,24 @@ class DestripeWidget(QWidget):
             params["lambda_hessian"] = float(
                 self.lineedit_lambda_hessian.text()
             )
-        except:
-            self.logger.error("Invalid lambda parameters")
+        except Exception as e:
+            self.logger.error(f"Invalid lambda parameters, error {e}")
             return
         try:
             params["inc"] = int(self.lineedit_inc.text())
-        except:
-            self.logger.error("Invalid latent dimension")
+        except Exception as e:
+            self.logger.error(f"Invalid latent dimension, error {e}")
             return
         try:
             params["n_epochs"] = int(self.lineedit_n_epochs.text())
-        except:
-            self.logger.error("Invalid training epochs")
+        except Exception as e:
+            self.logger.error(f"Invalid training epochs, error {e}")
             return
         params["wedge_degree"] = self.lineedit_wedge
         try:
             params["n_neighbors"] = int(self.lineedit_neighbors.text())
-        except:
-            self.logger.error("Invalid GNN neighbors")
+        except Exception as e:
+            self.logger.error(f"Invalid GNN neighbors, error {e}")
             return
         params["backend"] = self.backend
 
@@ -587,7 +582,8 @@ class DestripeWidget(QWidget):
             self.angle_check_button.setText("check")
             try:
                 self.viewer.layers.remove("angle offset(s)")
-            except:
+            except Exception as e:
+                print(f"Error! {e}")
                 pass
 
     def toggle_advanced_options(self):
