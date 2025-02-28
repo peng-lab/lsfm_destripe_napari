@@ -24,7 +24,7 @@ from qtpy.QtWidgets import (
 from qtpy.QtCore import Qt
 import napari
 
-from lsfm_destripe.core import DeStripe
+from leonardo_toolset import DeStripe
 
 from destripe_lsfm._reader import open_dialog, napari_get_reader
 from destripe_lsfm._writer import save_dialog, write_tiff
@@ -251,7 +251,8 @@ class DestripeWidget(QWidget):
         output_image = DeStripe.train_on_full_arr(
             X = params["input_image"],
             is_vertical = params["is_vertical"],
-            angle_offset = params["angle_offset"],
+            # angle_offset = params["angle_offset"],
+            angle_offset_dict = params["angle_offset_dict"],
             mask = params["mask"],
             device = params["device"],
         )
@@ -276,11 +277,13 @@ class DestripeWidget(QWidget):
         params["is_vertical"] = self.checkbox_vertical.isChecked()
         self.logger.debug(f"Vertical: {params['is_vertical']}")
         try:
-            params["angle_offset"] = list(map(float, self.lineedit_angle.text().split(",")))
+            params["angle_offset_dict"] = {"angle_offset": list(map(float, self.lineedit_angle.text().split(",")))}
+            # params["angle_offset_dict"] = {f"angle_offset_": [v] for i, v in enumerate(map(float, self.lineedit_angle.text().split(",")))}
+            # params["angle_offset"] = list(map(float, self.lineedit_angle.text().split(",")))
         except ValueError:
             self.logger.error("Invalid angle offset")
             return
-        self.logger.debug(f"Angle offset: {params['angle_offset']}")
+        self.logger.debug(f"Angle offset: {params['angle_offset_dict']}")
         mask_layer_index = self.viewer.layers.index(mask_layer_name)
         params["mask"] = self.viewer.layers[mask_layer_index].data
         params["device"] = "cuda" if torch.cuda.is_available() else "cpu"
