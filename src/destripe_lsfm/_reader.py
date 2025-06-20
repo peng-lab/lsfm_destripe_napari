@@ -8,7 +8,7 @@ https://napari.org/stable/plugins/guides.html?#readers
 
 from pathlib import Path
 from qtpy.QtWidgets import QFileDialog
-from aicsimageio import AICSImage
+from bioio import BioImage
 
 
 def open_dialog(parent):
@@ -75,6 +75,6 @@ def read_tiff(path):
         Data read from the file
     """
     filename = Path(path).name
-    reader = AICSImage(path)
+    reader = BioImage(path)
     data = reader.get_image_data("ZYX")
     return data, filename
