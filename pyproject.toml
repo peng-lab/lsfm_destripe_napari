@@ -1,5 +1,5 @@
 [project]
-name = "destripe-lsfm"
+name = "LSFM_destripe_napari"
 description = "A simple plugin to destripe microscopy images in napari"
 version = "0.1.0"
 readme = "README.md"
@@ -41,7 +41,7 @@ testing = [
 ]
 
 [project.entry-points."napari.manifest"]
-destripe-lsfm = "destripe_lsfm:napari.yaml"
+lsfm_destripe_napari = "lsfm_destripe_napari:napari.yaml"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/peng-lab/lsm_destripe_napari/issues"
@@ -60,7 +60,7 @@ package-dir = { "" = "src" }
 where = ["src"]
 
 [tool.setuptools.package-data]
-destripe_lsfm = ["napari.yaml"]
+lsfm_destripe_napari = ["napari.yaml"]
 
 [tool.black]
 line-length = 79
