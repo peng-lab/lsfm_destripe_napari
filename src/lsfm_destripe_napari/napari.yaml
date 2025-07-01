@@ -1,0 +1,28 @@
+name: lsfm_destripe_napari
+display_name: Leonardo-DeStripe 
+# use 'hidden' to remove plugin from napari hub search results
+visibility: public
+# see https://napari.org/stable/plugins/manifest.html for valid categories
+categories: ["Visualization", "Image Processing"]
+contributions:
+  commands:
+    - id: lsfm_destripe_napari.get_reader
+      python_name: lsfm_destripe_napari._reader:napari_get_reader
+      title: Open data with DeStripeLSFM
+    - id: lsfm_destripe_napari.write_tiff
+      python_name: lsfm_destripe_napari._writer:write_tiff
+      title: Save image data with DeStripeLSFM
+    - id: lsfm_destripe_napari.make_qwidget
+      python_name: lsfm_destripe_napari:DestripeWidget
+      title: Make LSFM Destripe Widget
+  readers:
+    - command: lsfm_destripe_napari.get_reader
+      accepts_directories: false
+      filename_patterns: ['*.tif', '*.tiff']
+  writers:
+    - command: lsfm_destripe_napari.write_tiff
+      layer_types: ['image']
+      filename_extensions: ['.tiff']
+  widgets:
+    - command: lsfm_destripe_napari.make_qwidget
+      display_name: LSFM Destripe Widget

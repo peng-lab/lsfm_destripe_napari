@@ -1,4 +1,3 @@
-# from destripe_lsfm import write_single_image, write_multiple
 
 # add your tests here...
 
