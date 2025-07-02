@@ -65,7 +65,7 @@ lsfm_destripe_napari = ["napari.yaml"]
 
 [tool.black]
 line-length = 79
-target-version = ['py38', 'py39', 'py310']
+target-version = ['py310']
 
 [tool.ruff]
 line-length = 79
