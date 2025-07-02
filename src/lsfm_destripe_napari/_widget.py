@@ -27,7 +27,7 @@ from qtpy import QtGui
 from qtpy.QtCore import Qt
 import napari
 
-from lsfm_destripe.core import DeStripe
+from leonardo_toolset.destripe.core import DeStripe
 
 from lsfm_destripe_napari._reader import open_dialog, napari_get_reader
 from lsfm_destripe_napari._writer import save_dialog, write_tiff
