@@ -1,7 +1,7 @@
 [project]
 name = "LSFM_destripe_napari"
 description = "A simple plugin to destripe microscopy images in napari"
-version = "0.1.0"
+version = "0.3.0"
 readme = "README.md"
 license = {file = "LICENSE"}
 authors = [
@@ -9,7 +9,7 @@ authors = [
   {email = "lennart.kowitz@isas.de"},
 ]
 classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 3 - Alpha",
     "Framework :: napari",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: BSD License",
@@ -17,11 +17,12 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Image Processing",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "numpy",
     "qtpy",
