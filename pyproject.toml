@@ -45,10 +45,10 @@ testing = [
 lsfm_destripe_napari = "lsfm_destripe_napari:napari.yaml"
 
 [project.urls]
-"Bug Tracker" = "https://github.com/peng-lab/lsm_destripe_napari/issues"
-"Documentation" = "https://github.com/peng-lab/lsm_destripe_napari#README.md"
-"Source Code" = "https://github.com/peng-lab/lsm_destripe_napari"
-"User Support" = "https://github.com/peng-lab/lsm_destripe_napari/issues"
+"Bug Tracker" = "https://github.com/peng-lab/lsfm_destripe_napari/issues"
+"Documentation" = "https://github.com/peng-lab/lsfm_destripe_napari#README.md"
+"Source Code" = "https://github.com/peng-lab/lsfm_destripe_napari"
+"User Support" = "https://github.com/peng-lab/lsfm_destripe_napari/issues"
 
 [build-system]
 requires = ["setuptools>=42.0.0", "wheel"]
